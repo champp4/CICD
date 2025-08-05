@@ -3,7 +3,7 @@ name: Node.js CI/CD Pipeline for CICD-1
 on:
   push:
     paths:
-      - 'CICD-1/**'   # Run only if CICD-1 files change
+      - 'CICD-1/**'
   pull_request:
     paths:
       - 'CICD-1/**'
@@ -21,14 +21,12 @@ jobs:
           node-version: '18'
 
       - name: Install dependencies
-        run: |
-          cd CICD-1
-          npm install
+        working-directory: CICD-1
+        run: npm install
 
       - name: Run Tests
-        run: |
-          cd CICD-1
-          npm test
+        working-directory: CICD-1
+        run: npm test
 
   docker-Build-Push:
     needs: test
@@ -44,9 +42,8 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker image
-        run: |
-          cd CICD-1
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/cicd-demo:latest .
+        working-directory: CICD-1
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/cicd-demo:latest .
 
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/cicd-demo:latest
