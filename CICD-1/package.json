@@ -1,0 +1,23 @@
+{
+  "name": "simple-nodejs-app",
+  "version": "1.0.0",
+  "description": "A simple Node.js app with CI/CD pipeline using GitHub Actions and Docker",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "jest"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.17.3",
+    "node-fetch": "^2.6.7",
+    "nodemon": "^2.0.20",
+    "request": "^2.88.2",
+    "wiki-infobox-parser": "^0.1.11"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "supertest": "^6.3.0"
+  }
+}
