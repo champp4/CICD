@@ -4,9 +4,9 @@ on:
   push:
     paths:
       - 'CICD-1/**'
-  pull_request:
-    paths:
-      - 'CICD-1/**'
+  #pull_request:
+   # paths:
+    #  - 'CICD-1/**'
 
 jobs:
   test:
