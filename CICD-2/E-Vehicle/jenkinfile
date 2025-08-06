@@ -1,0 +1,52 @@
+pipeline {
+    agent any
+
+    environment {
+        IMAGE_NAME = "e-vehicle-app"
+        CONTAINER_NAME = "e-vehicle-container"
+        PORT = 5000
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo "Checking out code"
+                git branch: 'main', url: 'https://github.com/champp4/CICD.git'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                echo "Building Docker image"
+                sh "docker build -t ${IMAGE_NAME}:latest CICD-2/E-Vehicle"
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo "Running tests (placeholder)"
+                sh "echo 'No tests implemented yet'"
+            }
+        }
+
+        stage('Deploy Container') {
+            steps {
+                echo "Deploying container"
+                sh """
+                    docker stop ${CONTAINER_NAME} || true
+                    docker rm ${CONTAINER_NAME} || true
+                    docker run -d --name ${CONTAINER_NAME} -p ${PORT}:${PORT} ${IMAGE_NAME}:latest
+                """
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Pipeline executed successfully"
+        }
+        failure {
+            echo "Pipeline failed. Check logs"
+        }
+    }
+}   
